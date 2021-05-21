@@ -1,6 +1,6 @@
-let app = require('express')();
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 io.of("/ravjs").on('connection', function (socket) {
     console.log('connection');
@@ -10,7 +10,7 @@ io.of("/ravjs").on('connection', function (socket) {
     });
 
     socket.on('op', function (d) {
-        var data = JSON.parse(d);
+        const data = JSON.parse(d);
 
         //Acknowledge op
         socket.emit("acknowledge", JSON.stringify({
@@ -19,8 +19,8 @@ io.of("/ravjs").on('connection', function (socket) {
         }));
 
         // Perform
-        let operation_type = data ["op_type"];
-        let operator = data ["operator"];
+        const operation_type = data ["op_type"];
+        const operator = data ["operator"];
         if (operation_type && operator) {
             compute(data);
         }
