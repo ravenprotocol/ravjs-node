@@ -4,7 +4,7 @@ Ravjs node client
 ### Development
 Install modules
 ```
-npm install
+npm ci
 ```
 
 Compile
