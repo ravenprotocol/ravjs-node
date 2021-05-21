@@ -4,7 +4,7 @@
   "description": "Ravjs node",
   "main": "raven.js",
   "scripts": {
-    "start": "node raven.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
