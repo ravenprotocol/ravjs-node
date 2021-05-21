@@ -11,5 +11,5 @@ io.of("/ravjs").on('connection', function (socket) {
 });
 
 http.listen(9999, function () {
-    console.log('listening on *:3000');
+    console.log('listening on *:9999');
 });
