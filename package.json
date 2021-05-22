@@ -13,8 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "@tensorflow/tfjs": "^3.6.0",
+    "@tensorflow/tfjs-node": "^3.6.1",
     "express": "^4.17.1",
-    "mathjs": "^8.1.0",
+    "mathjs": "^8.1.1",
     "seedrandom": "^2.4.3",
     "socket.io": "^1.2.0",
     "socket.io-client": "^1.2.0",

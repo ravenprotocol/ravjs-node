@@ -1,3 +1,6 @@
+import * as tf from "@tensorflow/tfjs-node";
+import * as math from "mathjs";
+import * as tfUtils from "./tf-utils"
 import { Socket } from "socket.io";
 import { Op } from "./types";
 
@@ -513,7 +516,7 @@ export class Computer {
             try {
                 const x = op.values[0];
                 const values = op.values[1];
-                const result = tf.findIndices(x, values);
+                const result = tfUtils.findIndices(x, values);
                 this.emit_result(op, result);
             } catch (error) {
                 this.emit_error(op, error);
@@ -621,7 +624,7 @@ export class Computer {
             try {
                 const x = tf.tensor(op.values[0], undefined, 'bool');
                 const y = tf.tensor(op.values[1], undefined, 'bool');
-                const result = x.logicalXor().arraySync();
+                const result = x.logicalXor(y).arraySync();
                 this.emit_result(op, result);
             } catch (error) {
                 this.emit_error(op, error);
@@ -633,7 +636,7 @@ export class Computer {
                 let params = op.params;
                 if ('axis' in params) {
                     let axis = params.axis;
-                    let result = x.mean(axis).arraySync();
+                    let result:any = x.mean(axis).arraySync();
                     if (x.shape.length === 2) {
                         if (axis === 0) {
                             result = tf.tensor2d(result, [1, result.length]).arraySync();
@@ -799,7 +802,7 @@ export class Computer {
                 let params = op.params;
                 if ('value' in params) {
                     let value = params.value;
-                    let result = percentile(x.arraySync(), value);
+                    let result = math.percentile(x.arraySync(), value);
                     this.emit_result(op, result);
                 } else {
                     this.emit_error(op, "Parameter 'value' is missing");
@@ -848,7 +851,7 @@ export class Computer {
                 let params = op.params;
                 if ('condition' in params) {
                     let condition = params.condition;
-                    let result = tf.bincount(condition, a.arraySync(), b.arraySync());
+                    let result = tf.bincount(a.arraySync(), b.arraySync(), condition);
                     this.emit_result(op, result);
                 } else {
                     this.emit_error(op, "Parameter 'condition' is missing");
