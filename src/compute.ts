@@ -1,11 +1,11 @@
 import { Socket } from "socket.io";
 import { Op } from "./types";
 
-interface Computer {
+export interface Computer {
   socket: Socket
 }
 
-class Computer {
+export class Computer {
   constructor(socket: Socket){
     this.socket = socket;
   }

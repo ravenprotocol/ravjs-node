@@ -1,5 +1,6 @@
 import { Op } from "./types";
 import ioserver, { Socket } from "socket.io";
+import { Computer } from "./compute"
 // import ioclient from 'socket.io-client';
 
 const app = require('express')();
@@ -8,6 +9,7 @@ const io = ioserver(http);
 
 io.of("/ravjs").on('connection', function (socket: Socket) {
     console.log('connection');
+    const computer = new Computer(socket);
 
     socket.emit("get_op", JSON.stringify({
         "message": "Send me an aop"
@@ -36,8 +38,7 @@ io.of("/ravjs").on('connection', function (socket: Socket) {
         const operation_type:string = data.op_type;
         const operator:string = data.operator;
         if (operation_type && operator) {
-            console.log(operation_type);
-            console.log(operator);
+            computer.execute(data);
         }
     });
 });
