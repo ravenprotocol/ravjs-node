@@ -9,6 +9,20 @@ const io = ioserver(http);
 io.of("/ravjs").on('connection', function (socket: Socket) {
     console.log('connection');
 
+    socket.emit("get_op", JSON.stringify({
+        "message": "Send me an aop"
+    }))
+
+    socket.on("ping", function (message) {
+        console.log(message);
+        console.log("Received PING");
+
+        console.log("Sending PONG");
+        socket.emit("pong", JSON.stringify({
+            "message": "PONG"
+        }));
+    });
+
     socket.on('op', function (d:string) {
         const data:Op = JSON.parse(d);
 
